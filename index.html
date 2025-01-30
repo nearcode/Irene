@@ -6,7 +6,7 @@
     <title>Happy Birthday Na Irene</title>
     <style>
         body, html {
-            height: 100%;
+            height: 100vh; /* ใช้ความสูงเต็มหน้าจอ */
             margin: 0;
             display: flex;
             justify-content: center;
@@ -14,10 +14,12 @@
             font-family: Arial, sans-serif;
             overflow: hidden;
         }
+
         #container {
             text-align: center;
-            display: none;
-            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             color: white;
             font-size: 36px;
             font-weight: bold;
@@ -25,6 +27,7 @@
             transition: opacity 1s ease-in;
             background-color: transparent; /* ทำให้พื้นหลังโปร่งใส */
         }
+
         #container img {
             max-width: 80%;  /* ปรับขนาดภาพให้ไม่เกิน 80% ของความกว้างของหน้าจอ */
             max-height: 70vh;  /* ปรับขนาดภาพให้ไม่เกิน 70% ของความสูงของหน้าจอ */
@@ -33,12 +36,14 @@
             display: block;
             margin: 0 auto; /* ทำให้ภาพอยู่ตรงกลาง */
         }
+
         .album {
             display: none;
             width: 90%;
             height: 80%;
             overflow: hidden;
         }
+
         .album-container {
             display: flex;
             gap: 20px;
@@ -46,12 +51,14 @@
             overflow-x: auto;  /* ทำให้สามารถเลื่อนภาพไปซ้ายขวาได้ */
             white-space: nowrap; /* ทำให้ภาพไม่ถูกแบ่งบรรทัด */
         }
+
         .album img {
             width: 200px;  /* กำหนดขนาดของแต่ละภาพ */
             height: auto;
             margin-bottom: 10px;
             cursor: pointer;
         }
+
         .bg {
             position: absolute;
             top: 0;
@@ -64,6 +71,7 @@
             transition: opacity 2s;
             z-index: -1; /* ให้อยู่ล่างสุด */
         }
+
         .image-choice {
             display: none; /* ซ่อนหน้าการเลือกภาพไว้จนกว่าจะถึงเวลา */
             justify-content: center;
@@ -72,12 +80,14 @@
             overflow: hidden;
             width: 100%; /* ทำให้สามารถเลื่อนภาพไปซ้ายขวาได้ */
         }
+
         .image-choice img {
             width: 200px;
             height: auto;
             cursor: pointer;
             border: 5px solid transparent;
         }
+
         .image-choice img:hover {
             border-color: #ff6347;
         }
@@ -91,12 +101,14 @@
             height: 30%;
             scale: 150%;
         }
+
         #next-page img {
             max-width: 50%;
             height: auto;
             display: block;
             margin: 0 auto;
         }
+
         /* ลิงก์ที่ด้านบนและด้านล่าง */
         .link {
             position: absolute;
@@ -106,16 +118,29 @@
             color: white;
             text-decoration: none;
         }
+
         .top-link {
             top: -90px; /* ปรับตำแหน่งของรูปภาพที่ด้านบน */
             left: 50%;
             transform: translateX(-50%); /* ทำให้ภาพอยู่ตรงกลาง */
         }
+
         .bottom-link {
             bottom: -50px; /* ปรับตำแหน่งของรูปภาพที่ด้านล่าง */
             left: 65%;
             scale: 130%;
             transform: translateX(-50%); /* ทำให้ภาพอยู่ตรงกลาง */
+        }
+
+        /* เพิ่มข้อความ "เลือกภาพเท่ๆ มาหนึ่งรูป" */
+        .choose-image-text {
+            position: absolute;
+            top: 20px; /* ทำให้ข้อความอยู่ด้านบนสุด */
+            width: 100%;
+            text-align: center;
+            font-size: 0px;
+            color: white;
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -165,6 +190,7 @@
     const background = document.getElementById('background');
     const backgroundNext = document.getElementById('background-next');
     const imageChoices = document.getElementById('image-choices');
+    const chooseImageText = document.getElementById('choose-image-text');
     const albumContainer = document.querySelector('.album-container');
     const nextPage = document.getElementById('next-page');
     const selectedImage = document.getElementById('selected-image');
@@ -194,6 +220,7 @@
     function showImageChoices() {
         container.style.display = 'none';
         imageChoices.style.display = 'flex'; // Show image choices after all messages are shown
+        chooseImageText.style.display = 'block'; // Show the text "เลือกภาพเท่ๆ มาหนึ่งรูป"
 
         // Show background for "ไปกับต่อ"
         backgroundNext.style.display = 'block'; // แสดงภาพพื้นหลังสำหรับหน้าถัดไป
@@ -218,12 +245,13 @@
     });
 
     // Handle image selection
-    imageChoices.addEventListener('click', (e) => {http://127.0.0.1:3002/%E0%B9%85/5/1.png
+    imageChoices.addEventListener('click', (e) => {
         if (e.target.tagName === 'IMG') {
             const selectedImageSrc = e.target.src;
             selectedImage.src = selectedImageSrc;  // Set selected image to next page
             nextPage.style.display = 'block';  // Show the next page
             imageChoices.style.display = 'none';  // Hide the image choices after selection
+            chooseImageText.style.display = 'none';  // Hide the text ""
         }
     });
 </script>
