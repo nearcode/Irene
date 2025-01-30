@@ -142,6 +142,26 @@
             color: white;
             margin-bottom: 20px;
         }
+
+        /* หน้าสุดท้าย (BG เปล่าๆ) */
+        #final-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover; /* ให้พื้นหลังขยายครอบคลุมหน้าจอ */
+            background-position: center center; /* จัดให้ภาพพื้นหลังอยู่ตรงกลาง */
+            z-index: 1; /* ให้อยู่ข้างบน */
+        }
+
+        #final-background {
+            background-image: url('https://cdn.jsdelivr.net/gh/nearcode/Irene@48393d22c93973ef12c734f34dce8ac295213412/Gradient%20Fill%202.png'); /* ใส่ URL ของภาพพื้นหลังที่ต้องการ */
+            background-size: cover;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
@@ -177,6 +197,17 @@
         </div>
     </div>
 
+    <!-- เพิ่มเพลง Happy Birthday -->
+    <audio id="birthdaySong" autoplay>
+        <source src="https://cdn.jsdelivr.net/gh/nearcode/Irene@c19ad707557d5ad460cfefe2a9e062c0ba6fba09/Happy%20Birthday%20(Piano%20Version).mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- หน้าสุดท้าย -->
+    <div id="final-page">
+        <div id="final-background"></div> <!-- พื้นหลังสุดท้าย -->
+    </div>
+
 <script>
     const messages = [
         'ๅ/Layer 3.png',  // ข้อความที่ 1
@@ -194,6 +225,7 @@
     const albumContainer = document.querySelector('.album-container');
     const nextPage = document.getElementById('next-page');
     const selectedImage = document.getElementById('selected-image');
+    const finalPage = document.getElementById('final-page');
 
     // Show background
     setTimeout(() => {
@@ -254,6 +286,30 @@
             chooseImageText.style.display = 'none';  // Hide the text ""
         }
     });
+
+    // Play birthday song when page loads
+    document.addEventListener('DOMContentLoaded', function () {
+        var audio = document.getElementById('birthdaySong');
+        audio.play().catch(() => {
+            console.log("Autoplay prevented, waiting for user interaction.");
+        });
+
+        document.body.addEventListener('click', function () {
+            if (audio.paused) {
+                audio.play();
+            }
+        });
+    });
+
+    // Function to show final page
+    function showFinalPage() {
+        container.style.display = 'none';
+        finalPage.style.display = 'block';  // แสดงหน้าสุดท้าย
+        background.style.opacity = 0;  // Fade out the initial background
+    }
+
+    // Show final page after a specific time
+    setTimeout(showFinalPage, 15000);  // Final page will appear after 15 seconds (adjust as needed)
 </script>
 </body>
 </html>
